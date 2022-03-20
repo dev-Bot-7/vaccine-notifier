@@ -29,15 +29,19 @@ export class UserService {
   }
 
   verifyOtp(email: string, otp: number): any {
-    return this.http.post<any>(this.SERVICE_API + '/verify-otp/' + email + '/' + otp,'', this.requestOptions);
+    return this.http.post<any>(this.SERVICE_API + '/verify-otp/' + email + '/' + otp, '', this.requestOptions);
   }
 
-  loginUser(userObj : User) : Observable<User> {
-    return this.http.post<User>(this.SERVICE_API+'/user-login',userObj,this.requestOptions);
+  loginUser(userObj: User): Observable<User> {
+    return this.http.post<User>(this.SERVICE_API + '/user-login', userObj, this.requestOptions);
   }
 
-  registerUser(user : User) : Observable<User> {
-    return this.http.post<User>(this.SERVICE_API+'/add-user',user, this.requestOptions);
+  registerUser(user: User): Observable<User> {
+    return this.http.post<User>(this.SERVICE_API + '/add-user', user, this.requestOptions);
+  }
+
+  gettoken() {
+    return !!localStorage.getItem("user");
   }
 
 }

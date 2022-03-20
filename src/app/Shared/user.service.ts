@@ -33,11 +33,11 @@ export class UserService {
   }
 
   loginUser(userObj : User) : Observable<User> {
-    return this.http.post<User>(this.SERVICE_API+'/user-login',userObj);
+    return this.http.post<User>(this.SERVICE_API+'/user-login',userObj,this.requestOptions);
   }
 
   registerUser(user : User) : Observable<User> {
-    return this.http.post<User>(this.SERVICE_API+'/add-user',user);
+    return this.http.post<User>(this.SERVICE_API+'/add-user',user, this.requestOptions);
   }
 
 }

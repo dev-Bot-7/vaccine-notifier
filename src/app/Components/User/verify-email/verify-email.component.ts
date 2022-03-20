@@ -13,7 +13,7 @@ export class VerifyEmailComponent implements OnInit {
 
   userObj: User = {
     id: 0,
-    name: '',
+    fullName: '',
     email: '',
     password: '',
     mobile: '',

@@ -13,7 +13,7 @@ export class UserRegistrationComponent implements OnInit {
 
   userObj : User = {
     id: 0,
-    name: '',
+    fullName: '',
     email: '',
     password: '',
     mobile: '',
@@ -40,7 +40,7 @@ export class UserRegistrationComponent implements OnInit {
   }
 
   userRegistration() {
-    this.userObj.name = this.registrationForm.value.name;
+    this.userObj.fullName = this.registrationForm.value.name;
     this.userObj.email = this.registrationForm.value.email;
     this.userObj.password = this.registrationForm.value.password;
     this.userObj.mobile = this.registrationForm.value.mobile;

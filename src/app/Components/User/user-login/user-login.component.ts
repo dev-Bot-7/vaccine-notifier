@@ -18,7 +18,7 @@ export class UserLoginComponent implements OnInit {
 
   userObj : User = {
     id: 0,
-    name: '',
+    fullName: '',
     email: '',
     password: '',
     mobile: '',
@@ -40,8 +40,13 @@ export class UserLoginComponent implements OnInit {
     this.userObj.password = this.loginForm.value.password;
 
     this.userService.loginUser(this.userObj).subscribe(res => {
-      localStorage.setItem('user',JSON.stringify(res));
+      if(res != null) {
+        localStorage.setItem('user',JSON.stringify(res));
       this.router.navigate(['/user/dashboard']);
+      } else {
+        alert('Login failed. Please enter valid credentials.');
+        this.router.navigate(['/']);
+      }
     }, err => {
       alert('Login failed');
       this.router.navigate(['/']);

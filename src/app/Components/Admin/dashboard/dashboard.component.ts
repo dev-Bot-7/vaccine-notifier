@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormControl } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
@@ -7,9 +9,33 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DashboardComponent implements OnInit {
 
-  constructor() { }
+  facultyDetailsForm = new FormGroup({
+    name: new FormControl(),
+    email : new FormControl(),
+    mobile : new FormControl(),
+    gender : new FormControl(),
+    adhar : new FormControl(),
+    birthday : new FormControl(),
+    department : new FormControl(),
+    joiningYear : new FormControl(),
+    password : new FormControl()
+  });
+
+  
+
+  constructor(private router : Router) { }
 
   ngOnInit(): void {
+   
+  }
+
+ 
+
+  
+  // sign out
+  signout() {
+    this.router.navigate(['/admin']);
   }
 
 }
+

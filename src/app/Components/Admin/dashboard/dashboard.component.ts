@@ -21,19 +21,20 @@ export class DashboardComponent implements OnInit {
     password : new FormControl()
   });
 
-  
+
 
   constructor(private router : Router) { }
 
   ngOnInit(): void {
-   
+
   }
 
- 
 
-  
+
+
   // sign out
   signout() {
+    localStorage.removeItem("token");
     this.router.navigate(['/admin']);
   }
 

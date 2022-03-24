@@ -6,10 +6,11 @@ import { UserDashboardComponent } from './Components/User/user-dashboard/user-da
 import { UserLoginComponent } from './Components/User/user-login/user-login.component';
 import { UserRegistrationComponent } from './Components/User/user-registration/user-registration.component';
 import { VerifyEmailComponent } from './Components/User/verify-email/verify-email.component';
+import { AdminAuthGuard } from './Shared/admin-auth.guard';
 import { AuthGuard } from './Shared/auth.guard';
 
 const routes: Routes = [
-  {path :'admin/dashboard', component: DashboardComponent},
+  {path :'admin/dashboard', component: DashboardComponent, canActivate : [AdminAuthGuard]},
   {path :'admin/login', component: LoginComponent},
   {path :'admin', redirectTo:'admin/login', pathMatch:'full'},
 

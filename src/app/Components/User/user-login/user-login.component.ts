@@ -17,7 +17,7 @@ export class UserLoginComponent implements OnInit {
   });
 
   userObj : User = {
-    id: 0,
+    userId: 0,
     fullName: '',
     email: '',
     password: '',
@@ -36,7 +36,7 @@ export class UserLoginComponent implements OnInit {
   }
 
   userLogin() {
-    this.userObj.email = this.loginForm.value.email;
+    this.userObj.email = this.loginForm.value.username;
     this.userObj.password = this.loginForm.value.password;
 
     this.userService.loginUser(this.userObj).subscribe(res => {

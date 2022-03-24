@@ -12,7 +12,7 @@ import { UserService } from 'src/app/Shared/user.service';
 export class VerifyEmailComponent implements OnInit {
 
   userObj: User = {
-    id: 0,
+    userId: 0,
     fullName: '',
     email: '',
     password: '',

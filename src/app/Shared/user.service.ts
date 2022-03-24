@@ -8,7 +8,7 @@ import { User } from '../Module/user';
 })
 export class UserService {
 
-  SERVICE_API = "http://localhost:9091/vaccine-notifier";
+  SERVICE_API = "http://localhost:9092/user";
 
   headerDict = {
     'Content-Type': 'application/json',
@@ -33,7 +33,7 @@ export class UserService {
   }
 
   loginUser(userObj: User): Observable<User> {
-    return this.http.post<User>(this.SERVICE_API + '/user-login', userObj, this.requestOptions);
+    return this.http.post<User>(this.SERVICE_API + '/user-login',userObj);
   }
 
   registerUser(user: User): Observable<User> {

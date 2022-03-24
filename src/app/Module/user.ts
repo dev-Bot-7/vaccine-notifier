@@ -1,9 +1,9 @@
 export interface User {
-  id: number,
+  userId: number,
   fullName : string,
   email : string,
-  password : string,
   mobile : string;
+  password : string,
 	isEmailVerified : boolean,
   token : string
 }

@@ -11,6 +11,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { UserLoginComponent } from './Components/User/user-login/user-login.component';
 import { UserRegistrationComponent } from './Components/User/user-registration/user-registration.component';
 import { VerifyEmailComponent } from './Components/User/verify-email/verify-email.component';
+import { AlertsComponent } from './Components/User/user-dashboard/alerts/alerts.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { VerifyEmailComponent } from './Components/User/verify-email/verify-emai
     LoginComponent,
     UserLoginComponent,
     UserRegistrationComponent,
-    VerifyEmailComponent
+    VerifyEmailComponent,
+    AlertsComponent
   ],
   imports: [
     BrowserModule,

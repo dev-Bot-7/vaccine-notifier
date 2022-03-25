@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http'
 import { Observable } from 'rxjs';
 import { User } from '../Module/user';
+import { Alert } from '../Module/alert';
 
 @Injectable({
   providedIn: 'root'
@@ -43,5 +44,14 @@ export class UserService {
   gettoken() {
     return !!localStorage.getItem("user");
   }
+
+  getAllAlerts(email : string, token : string) : Observable<Alert[]> {
+    return this.http.get<Alert[]>(this.SERVICE_API+'/all-alerts/'+email +'/'+token);
+  }
+
+  deleteAlert(token : string) : Observable<boolean> {
+    return this.http.delete<boolean>(this.SERVICE_API+'/delete-alert/'+token);
+  }
+
 
 }

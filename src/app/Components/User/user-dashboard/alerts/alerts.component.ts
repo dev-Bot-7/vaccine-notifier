@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
 import { Alert } from 'src/app/Module/alert';
 import { Location } from 'src/app/Module/location';
 import { AdminService } from 'src/app/Shared/admin.service';
@@ -16,11 +17,20 @@ export interface CenterInfo {
 })
 export class AlertsComponent implements OnInit {
 
-  locations : Location[] = [];
+  AlertFormData = new FormGroup({
+    locationId: new FormControl(),
+    vaccineName: new FormControl(),
+    vaccineType: new FormControl(),
+  });
 
+  locations : Location[] = [];
+  locationName : string = '';
   allAlerts : Alert[] = [];
 
   vaccineCenters : CenterInfo[] = [];
+  vaccines: any = ['covishield', 'covaxin', 'sputnik'];
+  types: any = ['free', 'paid'];
+
   vaccineCenterObj : CenterInfo = {
     locationId: 0,
     locationName: ''
@@ -28,7 +38,7 @@ export class AlertsComponent implements OnInit {
 
   alertObj : Alert = {
     alertId: 0,
-    locationId: '',
+    locationId: 0,
     email: '',
     vaccineName: '',
     vaccineType: ''
@@ -38,7 +48,7 @@ export class AlertsComponent implements OnInit {
   email : string = '';
   token : string = '';
 
-  constructor(private userService : UserService, private adminService : AdminService) { }
+  constructor(private userService : UserService, private adminService : AdminService, private fb : FormBuilder) { }
 
   ngOnInit(): void {
     this.user = localStorage.getItem("user")!;
@@ -58,8 +68,8 @@ export class AlertsComponent implements OnInit {
 
   deleteAlert(alertObj : Alert) {
     if(window.confirm('Are you sure, you want to delete this '+alertObj.alertId +' ?')) {
-      this.userService.deleteAlert(this.token).subscribe(res => {
-        if(res == true) {
+      this.userService.deleteAlert(this.token,alertObj.alertId).subscribe(res => {
+        if(res === true) {
           this.ngOnInit();
         } else {
           alert('Failed to delete this alert');
@@ -78,13 +88,38 @@ export class AlertsComponent implements OnInit {
     })
   }
 
-  getaVaccineCenterInfo() {
+  getVaccineCenterInfo() {
+    this.vaccineCenters = [];
     this.locations.forEach(entity => {
         this.vaccineCenterObj.locationId = entity.locationId;
         this.vaccineCenterObj.locationName = entity.locationName;
 
         this.vaccineCenters.push(this.vaccineCenterObj);
     });
+  }
+
+  addAlert() {
+    this.alertObj.locationId = this.AlertFormData.value.locationId;
+    this.alertObj.vaccineName = this.AlertFormData.value.vaccineName;
+    this.alertObj.vaccineType = this.AlertFormData.value.vaccineType;
+    this.alertObj.email = this.email;
+
+    console.log(this.alertObj);
+    this.userService.addAlert(this.alertObj,this.token).subscribe(res => {
+      this.getAllAlerts();
+    }, err => {
+      console.log(err);
+    })
+  }
+
+  getLocationName(locationId : number) : string {
+    this.getVaccineCenterInfo();
+    this.vaccineCenters.forEach(element => {
+      if(element.locationId === locationId) {
+        this.locationName = element.locationName;
+      }
+    });
+    return this.locationName;
   }
 
 }

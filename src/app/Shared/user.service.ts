@@ -49,8 +49,12 @@ export class UserService {
     return this.http.get<Alert[]>(this.SERVICE_API+'/all-alerts/'+email +'/'+token);
   }
 
-  deleteAlert(token : string) : Observable<boolean> {
-    return this.http.delete<boolean>(this.SERVICE_API+'/delete-alert/'+token);
+  deleteAlert(token : string, alertId : number) : Observable<boolean> {
+    return this.http.delete<boolean>(this.SERVICE_API+'/delete-alert/'+token+'/'+alertId);
+  }
+
+  addAlert(alertObj : Alert, token : string) : Observable<Alert> {
+    return this.http.post<Alert>(this.SERVICE_API+'/add-alert/'+token,alertObj);
   }
 
 

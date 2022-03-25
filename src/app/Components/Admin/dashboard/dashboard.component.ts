@@ -83,23 +83,21 @@ export class DashboardComponent implements OnInit {
 
   }
 
-  // sign out
-  signout() {
-    localStorage.removeItem("token");
-    this.router.navigate(['/admin']);
-  }
-
-
   getVaccineCenter(location: Location) {
+
+
 
     this.VaccineFormData = this.fb.group({
       vaccineName: location.vaccineName,
       locationId: location.locationId,
       locationName: location.locationName,
       vaccineCount: location.vaccineCount,
-      date: location.date,
+      date: location.date.substring(0,location.date.indexOf('T')),
       vaccineType: location.vaccineType
     });
+
+
+    console.log(this.VaccineFormData.value);
   }
 
   updateVaccineCenter() {
@@ -118,6 +116,12 @@ export class DashboardComponent implements OnInit {
     }, err => {
       console.log('Error while updating faculty ' + err);
     })
+  }
+
+  
+  signout() {
+    localStorage.removeItem("token");
+    this.router.navigate(['/admin']);
   }
 
 }

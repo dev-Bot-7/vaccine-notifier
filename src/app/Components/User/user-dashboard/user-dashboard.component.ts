@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Location } from 'src/app/Module/location';
 import { AdminService } from 'src/app/Shared/admin.service';
+import { UserService } from 'src/app/Shared/user.service';
 
 @Component({
   selector: 'app-user-dashboard',
@@ -15,7 +17,7 @@ export class UserDashboardComponent implements OnInit {
   username : string = '';
   locations : Location[] = [];
 
-  constructor(private adminService : AdminService) { }
+  constructor(private adminService : AdminService,private userService : UserService,private router : Router) { }
 
   ngOnInit(): void {
     this.showOverview();
@@ -48,7 +50,11 @@ export class UserDashboardComponent implements OnInit {
   }
 
   signout() {
-
+    this.userService.logoutUser(this.username).subscribe(res => {
+      this.router.navigate(['/user/login'])
+    }, err => {
+      this.router.navigate(['/user/login'])
+    })
   }
 
 }

@@ -9,7 +9,7 @@
   <!-- first row -->
   <div class="row pe-2 mt-3">
       <div class="col-sm-4 text-center">
-          <a href="" style="text-decoration: none;" data-bs-toggle="modal" data-bs-target="#addAlertModal" (click)="getVaccineCenterInfo()">
+          <a href="" style="text-decoration: none;" data-bs-toggle="modal" data-bs-target="#addAlertModal">
               <div class="card shadow">
                   <div class="card-body">
                       <h6>Add New Alert</h6>
@@ -26,7 +26,7 @@
       <div>
         <div class="card shadow">
           <div class="card-body">
-            <h6 class="text-danger">List of Faculties</h6>
+            <h6 class="text-danger">List of Alerts</h6>
             <table class="table table-hover border mt-3">
               <thead>
                 <tr>
@@ -73,7 +73,7 @@
                 <div class="form-floating mb-3">
                   <select class="form-select" id="locationId" formControlName="locationId">
                     <option disabled>Select</option>
-                    <option *ngFor="let center of vaccineCenters" value="{{center.locationId}}">{{center.locationName }}</option>
+                    <option *ngFor="let center of locations" value="{{center.locationId}}">{{center.locationName }}</option>
                   </select>
                   <label for="floatingInput">Vaccine center</label>
                   <div

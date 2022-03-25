@@ -30,7 +30,7 @@ export class UserService {
   }
 
   verifyOtp(email: string, otp: number): any {
-    return this.http.post<any>(this.SERVICE_API + '/verify-otp/' + email + '/' + otp, '', this.requestOptions);
+    return this.http.get<any>(this.SERVICE_API + '/verify-otp/' + email + '/' + otp, this.requestOptions);
   }
 
   loginUser(userObj: User): Observable<User> {
@@ -55,6 +55,11 @@ export class UserService {
 
   addAlert(alertObj : Alert, token : string) : Observable<Alert> {
     return this.http.post<Alert>(this.SERVICE_API+'/add-alert/'+token,alertObj);
+  }
+
+  logoutUser(username : string) {
+    localStorage.clear();
+    return this.http.post<any>(this.SERVICE_API+'/user-logout',{"email" : username});
   }
 
 

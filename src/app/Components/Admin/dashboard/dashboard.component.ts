@@ -47,7 +47,7 @@ export class DashboardComponent implements OnInit {
   }
 
   addCenter() {
-
+    this.locationObj.locationId = 0;
     this.locationObj.locationName = this.VaccineFormData.value.locationName;
     this.locationObj.vaccineName = this.VaccineFormData.value.vaccineName;
     this.locationObj.vaccineCount = this.VaccineFormData.value.vaccineCount;
@@ -118,7 +118,7 @@ export class DashboardComponent implements OnInit {
     })
   }
 
-  
+
   signout() {
     localStorage.removeItem("token");
     this.router.navigate(['/admin']);

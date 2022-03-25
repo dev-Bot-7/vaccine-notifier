@@ -22,7 +22,7 @@ export class UserLoginComponent implements OnInit {
     email: '',
     password: '',
     mobile: '',
-    isEmailVerified: false,
+    isEmailVerified: true,
     token: ''
   }
 

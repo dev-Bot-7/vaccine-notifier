@@ -6,8 +6,8 @@ import { AdminService } from 'src/app/Shared/admin.service';
 import { UserService } from 'src/app/Shared/user.service';
 
 export interface CenterInfo {
-  locationId : number,
-  locationName : string
+  locationId: number,
+  locationName: string
 }
 
 @Component({
@@ -23,20 +23,20 @@ export class AlertsComponent implements OnInit {
     vaccineType: new FormControl(),
   });
 
-  locations : Location[] = [];
-  locationName : string = '';
-  allAlerts : Alert[] = [];
+  locations: Location[] = [];
+  locationName: string = '';
+  allAlerts: Alert[] = [];
 
-  vaccineCenters : CenterInfo[] = [];
+  vaccineCenters: CenterInfo[] = [];
   vaccines: any = ['covishield', 'covaxin', 'sputnik'];
   types: any = ['free', 'paid'];
 
-  vaccineCenterObj : CenterInfo = {
+  vaccineCenterObj: CenterInfo = {
     locationId: 0,
     locationName: ''
   }
 
-  alertObj : Alert = {
+  alertObj: Alert = {
     alertId: 0,
     locationId: 0,
     email: '',
@@ -44,11 +44,11 @@ export class AlertsComponent implements OnInit {
     vaccineType: ''
   }
 
-  user : string = '';
-  email : string = '';
-  token : string = '';
+  user: string = '';
+  email: string = '';
+  token: string = '';
 
-  constructor(private userService : UserService, private adminService : AdminService, private fb : FormBuilder) { }
+  constructor(private userService: UserService, private adminService: AdminService, private fb: FormBuilder) { }
 
   ngOnInit(): void {
     this.user = localStorage.getItem("user")!;
@@ -59,17 +59,18 @@ export class AlertsComponent implements OnInit {
   }
 
   getAllAlerts() {
-    this.userService.getAllAlerts(this.email,this.token).subscribe(res => {
+    this.userService.getAllAlerts(this.email, this.token).subscribe(res => {
+      console.log(res);
       this.allAlerts = res;
     }, err => {
       console.log(err);
     })
   }
 
-  deleteAlert(alertObj : Alert) {
-    if(window.confirm('Are you sure, you want to delete this '+alertObj.alertId +' ?')) {
-      this.userService.deleteAlert(this.token,alertObj.alertId).subscribe(res => {
-        if(res === true) {
+  deleteAlert(alertObj: Alert) {
+    if (window.confirm('Are you sure, you want to delete this ' + alertObj.alertId + ' ?')) {
+      this.userService.deleteAlert(this.token, alertObj.alertId).subscribe(res => {
+        if (res === true) {
           this.ngOnInit();
         } else {
           alert('Failed to delete this alert');
@@ -88,34 +89,24 @@ export class AlertsComponent implements OnInit {
     })
   }
 
-  getVaccineCenterInfo() {
-    this.vaccineCenters = [];
-    this.locations.forEach(entity => {
-        this.vaccineCenterObj.locationId = entity.locationId;
-        this.vaccineCenterObj.locationName = entity.locationName;
-
-        this.vaccineCenters.push(this.vaccineCenterObj);
-    });
-  }
 
   addAlert() {
+    this.alertObj.alertId = 0;
     this.alertObj.locationId = this.AlertFormData.value.locationId;
     this.alertObj.vaccineName = this.AlertFormData.value.vaccineName;
     this.alertObj.vaccineType = this.AlertFormData.value.vaccineType;
     this.alertObj.email = this.email;
 
-    console.log(this.alertObj);
-    this.userService.addAlert(this.alertObj,this.token).subscribe(res => {
+    this.userService.addAlert(this.alertObj, this.token).subscribe(res => {
       this.getAllAlerts();
     }, err => {
       console.log(err);
     })
   }
 
-  getLocationName(locationId : number) : string {
-    this.getVaccineCenterInfo();
-    this.vaccineCenters.forEach(element => {
-      if(element.locationId === locationId) {
+  getLocationName(locationId: number): string {
+    this.locations.forEach(element => {
+      if (element.locationId === locationId) {
         this.locationName = element.locationName;
       }
     });

@@ -37,10 +37,10 @@ export class VerifyEmailComponent implements OnInit {
   verifyEmail() {
     this.userService.verifyOtp(this.userObj.email, this.otpForm.value.otp).subscribe((res: any) => {
       if (res == true) {
+        this.userObj.isEmailVerified = true;
         this.userService.registerUser(this.userObj).subscribe(res => {
-
           localStorage.clear();
-          this.router.navigate(['/user/login']);
+         this.router.navigate(['/user/login']);
 
         }, err => {
 
